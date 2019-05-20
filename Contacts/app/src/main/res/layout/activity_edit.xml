@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditActivity">
+
+    <EditText
+    android:id="@+id/nameFieldEA"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:hint="Name"/>
+
+    <EditText
+        android:id="@+id/phoneFieldEA"
+        android:layout_below="@+id/nameFieldEA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/descriptionFieldEA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/phoneFieldEA"
+        android:hint="Description"
+        android:inputType="textMultiLine" />
+
+    <!--<Spinner
+        android:id="@+id/categoryEA"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/descriptionFieldEA"
+        android:layout_height="wrap_content" />-->
+
+    <EditText
+        android:id="@+id/categoryFieldEA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionFieldEA"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Category"/>
+
+    <Button
+        android:id="@+id/saveEA"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/categoryFieldEA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/cancelEA"
+        android:layout_below="@+id/categoryFieldEA"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+
+</RelativeLayout>
