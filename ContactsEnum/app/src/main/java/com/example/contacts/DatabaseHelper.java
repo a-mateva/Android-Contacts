@@ -1,4 +1,5 @@
 package com.example.contacts;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -10,7 +11,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class DatabaseHelper extends SQLiteOpenHelper{
+public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "contacts.db";
 
@@ -24,17 +25,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DESCRIPTION = "description";
     private static final String CATEGORY = "category";
 
+    private ArrayList<String> list = new ArrayList<>();
+
     private static final String CREATE_TABLE_CONTACTS =
             "CREATE TABLE " + TABLE_CONTACTS +
                     "(" + CONTACT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     NAME + " VARCHAR NOT NULL, " + PHONENUMBER + " VARCHAR NOT NULL, " +
-                    DESCRIPTION + " VARCHAR(255) " + ");";
-
-
-
+                    DESCRIPTION + " VARCHAR(255), " + CATEGORY + " VARCHAR(255)" + ");";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        //for (Category item : Category.values()) {
+          //   list.add(item.name());
+        //}
     }
 
     @Override
@@ -71,14 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             cv.put(NAME, contact.getName());
             cv.put(DESCRIPTION, contact.getDescription());
             cv.put(PHONENUMBER, contact.getPhoneNumber());
-            cv.put(CATEGORY, contact.getCategory());
-            //cv.put(CATEGORY, contact.getCategory().name());
+            cv.put(CATEGORY, contact.getCategory().name());
 
             db.insertOrThrow(TABLE_CONTACTS, null, cv);
-        } catch(SQLiteException e){
+        } catch (SQLiteException e) {
             Log.e("SQL Insert Error", e.getMessage());
         } finally {
-            if (db != null){
+            if (db != null) {
                 db.close();
             }
         }
@@ -91,15 +93,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             cv.put(NAME, contact.getName());
             cv.put(DESCRIPTION, contact.getDescription());
             cv.put(PHONENUMBER, contact.getPhoneNumber());
-            cv.put(CATEGORY, contact.getCategory());
+            cv.put(CATEGORY, contact.getCategory().name());
             //cv.put(CATEGORY, contact.getCategory().name());
 
             db.update(TABLE_CONTACTS, cv, CONTACT_ID + " = " + contact.getId(), null);
 
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQL Update Error", e.getMessage());
         } finally {
-            if (db != null){
+            if (db != null) {
                 db.close();
             }
         }
@@ -118,8 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 contact.setName(c.getString(c.getColumnIndex(NAME)));
                 contact.setPhoneNumber(c.getString(c.getColumnIndex(PHONENUMBER)));
                 contact.setDescription(c.getString(c.getColumnIndex(DESCRIPTION)));
-                contact.setCategory(c.getString(c.getColumnIndex(CATEGORY)));
-                //contact.setCategory(Enum.valueOf(Category.class, c.getString(c.getColumnIndex(CATEGORY))));
+                contact.setCategory(Enum.valueOf(Category.class, c.getString(c.getColumnIndex(CATEGORY))));
 
                 contacts.add(contact);
             }
@@ -149,10 +150,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 contact.setName(c.getString(c.getColumnIndex(NAME)));
                 contact.setPhoneNumber(c.getString(c.getColumnIndex(PHONENUMBER)));
                 contact.setDescription(c.getString(c.getColumnIndex(DESCRIPTION)));
-                contact.setCategory(c.getString(c.getColumnIndex(CATEGORY)));
-                //contact.setCategory(Enum.valueOf(Category.class, c.getString(c.getColumnIndex(CATEGORY))));
+                contact.setCategory(Enum.valueOf(Category.class, c.getString(c.getColumnIndex(CATEGORY))));
             }
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQL Retrieve Error", e.getMessage());
         } finally {
             if (db != null) {
@@ -166,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         try {
             db = getWritableDatabase();
             db.delete(TABLE_CONTACTS, CONTACT_ID + " = " + contact.getId(), null);
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQL Delete Error", e.getMessage());
         } finally {
             if (db != null) {

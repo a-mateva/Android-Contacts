@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditActivity">
+    tools:context=".AddActivity">
 
     <EditText
-    android:id="@+id/nameFieldEA"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:ems="10"
-    android:inputType="textPersonName"
-    android:hint="Name"/>
+        android:id="@+id/nameFieldAA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"/>
 
     <EditText
-        android:id="@+id/phoneFieldEA"
-        android:layout_below="@+id/nameFieldEA"
+        android:id="@+id/phoneFieldAA"
+        android:layout_below="@+id/nameFieldAA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -24,46 +24,45 @@
         android:inputType="phone" />
 
     <EditText
-        android:id="@+id/descriptionFieldEA"
+        android:id="@+id/descriptionFieldAA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_below="@+id/phoneFieldEA"
+        android:layout_below="@+id/phoneFieldAA"
         android:hint="Description"
         android:inputType="textMultiLine" />
 
-    <!--<Spinner
-        android:id="@+id/categoryEA"
+    <!--<EditText
+        android:id="@+id/categoryFieldAA"
         android:layout_width="match_parent"
-        android:layout_below="@+id/descriptionFieldEA"
-        android:layout_height="wrap_content" />-->
-
-    <EditText
-        android:id="@+id/categoryFieldEA"
-        android:layout_width="match_parent"
+        android:layout_below="@id/descriptionFieldAA"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/descriptionFieldEA"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Category"/>
+        android:hint="Category"/>-->
+
+   <Spinner
+        android:id="@+id/spinnerAA"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/descriptionFieldAA"
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/saveEA"
+        android:id="@+id/saveAA"
         android:layout_marginTop="10dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/categoryFieldEA"
+        android:layout_below="@+id/spinnerAA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save" />
 
     <Button
-        android:id="@+id/cancelEA"
-        android:layout_below="@+id/categoryFieldEA"
+        android:id="@+id/cancelAA"
+        android:layout_below="@+id/spinnerAA"
         android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel" />
-
 </RelativeLayout>

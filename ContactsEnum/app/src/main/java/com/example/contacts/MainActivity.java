@@ -39,12 +39,8 @@ public class MainActivity extends AppCompatActivity {
         editBtn = findViewById(R.id.editBtnMA);
         list = findViewById(R.id.listMA);
 
-        //contactsToString contains only the names of all contacts, for visualization purposes
         contactsToString = new ArrayList<>();
         allContacts = new ArrayList<>();
-
-        //for mock up purposes
-        //allContacts.addAll(dbHelper.addMockDataOnStartup());
 
         allContacts = dbHelper.getAllContacts();
 

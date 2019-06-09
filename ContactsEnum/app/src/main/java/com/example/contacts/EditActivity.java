@@ -3,10 +3,16 @@ package com.example.contacts;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -15,8 +21,10 @@ public class EditActivity extends AppCompatActivity {
     public EditText nameEA;
     public EditText phoneEA;
     public EditText descriptionEA;
-    public EditText categoryEA;
+    public Spinner spinnerEA;
 
+    ArrayList<String> categoriesList = new ArrayList<>();
+    int categoryPosition;
     DatabaseHelper dbHelper = new DatabaseHelper(this);
 
     @Override
@@ -24,22 +32,46 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-
         saveBtn = findViewById(R.id.saveEA);
         returnBtn = findViewById(R.id.cancelEA);
         nameEA = findViewById(R.id.nameFieldEA);
         phoneEA = findViewById(R.id.phoneFieldEA);
         descriptionEA = findViewById(R.id.descriptionFieldEA);
-        categoryEA = findViewById(R.id.categoryFieldEA);
+        spinnerEA = findViewById(R.id.spinnerEA);
+
+        for (Category item : Category.values()) {
+            categoriesList.add(item.name());
+        }
+
+        ArrayAdapter<String> categoriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoriesList);
+        spinnerEA.setAdapter(categoriesAdapter);
 
         nameEA.setText(MainActivity.contactToEdit.getName());
         phoneEA.setText(MainActivity.contactToEdit.getPhoneNumber());
         descriptionEA.setText(MainActivity.contactToEdit.getDescription());
-        categoryEA.setText(MainActivity.contactToEdit.getCategory());
+        for (int i = 0; i < categoriesList.size(); i++) {
+            if (categoriesList.get(i) == MainActivity.contactToEdit.getCategory().name()) {
+                spinnerEA.setSelection(i);
+                break;
+            }
+        }
 
         returnBtn.setOnClickListener(onClick);
         saveBtn.setOnClickListener(onClick);
+        spinnerEA.setOnItemSelectedListener(onItemSelectedListener);
     }
+
+    AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            categoryPosition = position;
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            Toast.makeText(getApplicationContext(), "Nothing selected", Toast.LENGTH_LONG);
+        }
+    };
 
     View.OnClickListener onClick = new View.OnClickListener() {
         @Override
@@ -53,7 +85,7 @@ public class EditActivity extends AppCompatActivity {
                 editedContact.setName(nameEA.getText().toString());
                 editedContact.setPhoneNumber(phoneEA.getText().toString());
                 editedContact.setDescription(descriptionEA.getText().toString());
-                editedContact.setCategory(categoryEA.getText().toString());
+                editedContact.setCategory(Enum.valueOf(Category.class, spinnerEA.getSelectedItem().toString()));
                 dbHelper.updateContact(editedContact);
                 intent = new Intent(getApplicationContext(), MainActivity.class);
             }

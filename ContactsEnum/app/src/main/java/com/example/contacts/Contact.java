@@ -5,9 +5,9 @@ public class Contact {
     private String name;
     private String phoneNumber;
     private String description;
-    private String category;
+    private Category category;
 
-    public Contact(String name, String phone, String description, String category) {
+    public Contact(String name, String phone, String description, Category category) {
         this.name = name;
         this.phoneNumber = phone;
         this.description = description;
@@ -50,19 +50,11 @@ public class Contact {
         this.description = description;
     }
 
-    /*public Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
-        this.category = category;
-    }*/
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
         this.category = category;
     }
 }
